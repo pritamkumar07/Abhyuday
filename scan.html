@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2c2c2e">
+    <title>Mess Pass Scanner</title>
+    <meta name="description" content="Hostel Mess Pass Scanner & Verified Pass Result">
+    <link rel="stylesheet" href="mess_coupon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="scanner-body">
+
+    <div class="scanner-container">
+        
+        <!-- Top Sheet Header Bar (Matching Screenshot Top Sheet) -->
+        <div class="sheet-top-header">
+            <div class="sheet-handle-bar"></div>
+            <div class="sheet-title-row">
+                <span class="sheet-title">Mess Pass</span>
+                <a href="index.html?page=mess" class="sheet-close-btn" title="Close Pass">&times;</a>
+            </div>
+        </div>
+
+        <!-- 1. Active Camera Viewfinder (Shown during scan) -->
+        <div class="viewfinder-wrapper" id="viewfinder-wrapper">
+            <div class="viewfinder-card" id="viewfinder">
+                <video class="video-camera-feed" id="camera-feed" autoplay playsinline muted></video>
+                <div class="camera-simulation" id="camera-simulation"></div>
+                
+                <div class="frame-corner corner-tl" id="c-tl"></div>
+                <div class="frame-corner corner-tr" id="c-tr"></div>
+                <div class="frame-corner corner-bl" id="c-bl"></div>
+                <div class="frame-corner corner-br" id="c-br"></div>
+
+                <div class="scan-line" id="scan-line"></div>
+                <i class="fas fa-qrcode qr-target-icon" id="qr-target-icon"></i>
+
+                <div class="scan-status-text" id="scan-status-text">
+                    <i class="fas fa-camera" style="margin-right: 6px;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. EXACT MESS PASS RESULT SCREEN (Revealed after scanning is done) -->
+        <div class="mess-pass-result-view" id="mess-pass-result">
+            
+            <div class="mess-pass-card">
+                
+                <!-- Floating Countdown Circle Badge on Top Right (e.g. 27) -->
+                <div class="countdown-badge" id="countdown-badge">30</div>
+
+                <!-- Dual Cards Row: Photo Card & QR Code Card -->
+                <div class="dual-cards-row">
+                    
+                    <!-- Left Subcard: Photo + Student ID + Student Name -->
+                    <div class="square-subcard">
+                        <div class="photo-frame">
+                            <img src="avi_potrait.png" alt="Abhyuday">
+                        </div>
+                        <div class="subcard-regid">12517259</div>
+                        <div class="subcard-name">Abhyuday</div>
+                    </div>
+
+                    <!-- Right Subcard: Exact High-Density Vector QR Code + Meal + Mess -->
+                    <div class="square-subcard">
+                        <div class="qr-frame" id="qr-container">
+                            <!-- Crisp Vector QR Code rendered by JS -->
+                        </div>
+                        <div class="subcard-meal" id="pass-meal-title">BreakFast</div>
+                        <div class="subcard-messloc">Mess - 1 BH-4</div>
+                    </div>
+
+                </div>
+
+                <!-- Middle Info Details -->
+                <div class="pass-details-center">
+                    <div class="program-title-text">
+                        P132:B.Tech. (Computer Science and Engineering)(2025)
+                    </div>
+
+                    <div class="assigned-mess-text">
+                        Your Assigned Mess - Mess-1 BH-4
+                    </div>
+
+                    <!-- Timestamp Row (Date & Time) -->
+                    <div class="timestamp-row">
+                        <span class="timestamp-date" id="pass-date">Jul 26, 2026</span>
+                        <span class="timestamp-time" id="pass-time">11:43 AM</span>
+                    </div>
+                </div>
+
+                <!-- Approval Text & Rate Us Button -->
+                <div class="approval-rate-section">
+                    <div class="meal-approved-text">Meal Approved</div>
+                    
+                    <a href="javascript:void(0)" class="rate-us-btn" onclick="alert('Thank you for rating your meal!')">
+                        <span class="rate-star">⭐</span>
+                        <span class="rate-text">RATE US</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Bottom Olive Gold Section with Inset Box & ACCEPTED Badge -->
+            <div class="pass-bottom-footer">
+                <div class="footer-white-box">
+                    <div class="accepted-pill-badge">
+                        <div class="accepted-check-icon">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="accepted-text">ACCEPTED</span>
+                    </div>
+                </div>
+                <div class="ios-bottom-bar"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="scan.js"></script>
+</body>
+</html>

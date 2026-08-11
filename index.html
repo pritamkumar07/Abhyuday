@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffffff">
+    <title>LPU Touch - Student Portal</title>
+    <meta name="description" content="Lovely Professional University Student Portal Dashboard & Mess Scanner">
+    <link rel="stylesheet" href="mess_coupon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page-body">
+
+    <!-- 1. 3 to 5 Second Fullscreen Loading Splash Screen -->
+    <div id="loading-splash" class="loading-splash-overlay">
+        <div class="splash-logo-container">
+            <div class="lpu-logo-wrapper">
+                <svg viewBox="0 0 200 200" width="130" height="130" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <path id="lpu-text-top" d="M 25,100 A 75,75 0 1,1 175,100" />
+                        <path id="lpu-text-bottom" d="M 175,100 A 75,75 0 0,1 25,100" />
+                    </defs>
+                    <!-- Outer Ring -->
+                    <circle cx="100" cy="100" r="96" fill="#ffffff" stroke="#f36c21" stroke-width="4.5"/>
+                    <circle cx="100" cy="100" r="70" fill="#ffffff" stroke="#f36c21" stroke-width="2.5"/>
+                    
+                    <!-- Text Top: LOVELY PROFESSIONAL UNIVERSITY -->
+                    <text font-family="'Inter', sans-serif" font-size="10.5" font-weight="800" fill="#111111" letter-spacing="1">
+                        <textPath href="#lpu-text-top" startOffset="50%" text-anchor="middle">
+                            LOVELY PROFESSIONAL UNIVERSITY
+                        </textPath>
+                    </text>
+                    
+                    <!-- Text Bottom: PUNJAB (INDIA) -->
+                    <text font-family="'Inter', sans-serif" font-size="10" font-weight="800" fill="#111111" letter-spacing="0.8">
+                        <textPath href="#lpu-text-bottom" startOffset="50%" text-anchor="middle">
+                            • PUNJAB (INDIA) •
+                        </textPath>
+                    </text>
+
+                    <!-- Inner Orange Circle with Sunburst Rays -->
+                    <g transform="translate(100, 100)">
+                        <circle cx="0" cy="0" r="68" fill="#f36c21"/>
+                        
+                        <!-- Radiating Black Rays -->
+                        <path d="M -58,35 L -35,-58 L -15,-66 Z" fill="#111111"/>
+                        <path d="M -58,35 L 5,-67 L 28,-63 Z" fill="#111111"/>
+                        <path d="M -58,35 L 48,-48 L 64,-24 Z" fill="#111111"/>
+                        <path d="M -58,35 L 68,-2 L 66,22 Z" fill="#111111"/>
+
+                        <!-- Outer Edge Circle Stroke -->
+                        <circle cx="0" cy="0" r="68" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. DASHBOARD PAGE (Appears right after loading splash screen) -->
+    <div id="dashboard-page" class="dashboard-container" style="display: none;">
+        
+        <!-- Top App Bar -->
+        <header class="dash-top-bar">
+            <button class="dash-menu-btn" onclick="openNavDrawer()" aria-label="Open Navigation Menu">
+                <span class="dash-menu-bar"></span>
+                <span class="dash-menu-bar"></span>
+                <span class="dash-menu-bar"></span>
+            </button>
+
+            <h1 class="dash-page-title">Dashboard</h1>
+
+            <div class="dash-bell-wrapper">
+                <svg viewBox="0 0 24 24" class="dash-bell-icon-svg" fill="none" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span class="dash-bell-badge">10</span>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Dashboard Content -->
+        <main class="dash-content-scroll">
+            
+            <!-- Today's Timetable Section -->
+            <section class="dash-section">
+                <div class="dash-section-header">
+                    <h2 class="dash-section-heading">Today's Timetable</h2>
+                    <span class="your-dost-pill">Your Dost</span>
+                </div>
+                <div class="timetable-card-box">
+                    <span class="no-timetable-msg">No TimeTable Available</span>
+                </div>
+            </section>
+
+            <!-- Add More Tiles Section -->
+            <section class="dash-section add-tiles-section">
+                <div class="dash-section-header">
+                    <h2 class="dash-section-heading">Add More Tiles</h2>
+                    <button class="add-tile-plus-btn" aria-label="Add Grid Tiles">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <p class="dash-section-subtext">Click on the plus button to add menu grids.</p>
+            </section>
+
+            <!-- 3x3 Tiles Grid (Matches Screenshot Layout) -->
+            <div class="dashboard-tiles-grid">
+                
+                <!-- Tile 1: Announce -->
+                <div class="tile-box">
+                    <span class="tile-number-badge">25</span>
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <path d="M12 28v12h8l14 10V18L20 28h-8z" fill="none" stroke="#f36c21" stroke-width="3.5" stroke-linejoin="round"/>
+                            <path d="M12 28h8v12h-8z" fill="none" stroke="#222" stroke-width="3"/>
+                            <path d="M40 24c3 3 3 13 0 16M46 18c6 6 6 22 0 28" fill="none" stroke="#f36c21" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M22 40l2 12" stroke="#222" stroke-width="3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Announce</div>
+                </div>
+
+                <!-- Tile 2: Edu Revolution (Highlighted Box) -->
+                <div class="tile-box tile-highlighted">
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="14" y="24" width="36" height="22" rx="3" fill="none" stroke="#222" stroke-width="3"/>
+                            <path d="M8 50h48" stroke="#f36c21" stroke-width="3.5" stroke-linecap="round"/>
+                            <path d="M32 8l16 8-16 8-16-8z" fill="none" stroke="#f36c21" stroke-width="3" stroke-linejoin="round"/>
+                            <path d="M20 18v8c0 4 12 4 12 0v-8" fill="none" stroke="#f36c21" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Edu Revolution</div>
+                </div>
+
+                <!-- Tile 3: Fee Statement -->
+                <div class="tile-box">
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <path d="M12 44l12-6 10 4 16-8" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+                            <rect x="28" y="16" width="26" height="16" rx="2" fill="none" stroke="#f36c21" stroke-width="3"/>
+                            <circle cx="41" cy="24" r="3" fill="#f36c21"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Fee Statement</div>
+                </div>
+
+                <!-- Tile 4: Attendance -->
+                <div class="tile-box">
+                    <span class="tile-number-badge">100 %</span>
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="16" y="14" width="32" height="42" rx="4" fill="none" stroke="#222" stroke-width="3"/>
+                            <rect x="24" y="10" width="16" height="8" rx="2" fill="none" stroke="#f36c21" stroke-width="3"/>
+                            <path d="M26 34l4 4 8-8" fill="none" stroke="#f36c21" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Attendance</div>
+                </div>
+
+                <!-- Tile 5: Assignment -->
+                <div class="tile-box">
+                    <span class="tile-number-badge">0</span>
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="18" y="12" width="28" height="42" rx="3" fill="none" stroke="#222" stroke-width="3"/>
+                            <path d="M24 22h16M24 30h16M24 38h10" stroke="#f36c21" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M42 36l6 6-10 10-4 1 1-4z" fill="none" stroke="#222" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Assignment</div>
+                </div>
+
+                <!-- Tile 6: Results -->
+                <div class="tile-box">
+                    <span class="tile-number-badge">5.64</span>
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="16" y="12" width="32" height="42" rx="3" fill="none" stroke="#222" stroke-width="3"/>
+                            <path d="M24 42v-8M32 42v-16M40 42v-10" stroke="#f36c21" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Results</div>
+                </div>
+
+                <!-- Tile 7: Exams -->
+                <div class="tile-box">
+                    <span class="tile-number-badge">0</span>
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="16" y="12" width="32" height="42" rx="3" fill="none" stroke="#222" stroke-width="3"/>
+                            <text x="22" y="24" font-size="8" font-weight="900" fill="#f36c21" font-family="sans-serif">EXAM</text>
+                            <path d="M24 32h16M24 40h12" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M42 34l4 4-8 12-3 1 1-3z" fill="none" stroke="#f36c21" stroke-width="2.5"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">Exams</div>
+                </div>
+
+                <!-- Tile 8: RMS Status -->
+                <div class="tile-box">
+                    <span class="tile-number-badge">0</span>
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="14" y="16" width="36" height="36" rx="4" fill="none" stroke="#222" stroke-width="3"/>
+                            <path d="M14 26h36" stroke="#f36c21" stroke-width="3"/>
+                            <path d="M22 12v8M42 12v8" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M26 38l4 4 8-8" fill="none" stroke="#f36c21" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn">RMS Status</div>
+                </div>
+
+                <!-- Tile 9: MESS SCANNER (Changed from Events box, opens Main Mess Page on click) -->
+                <div class="tile-box mess-scanner-tile" id="mess-scanner-tile" onclick="showMessCouponPage()">
+                    <div class="tile-icon-area">
+                        <svg viewBox="0 0 64 64" class="tile-svg-icon">
+                            <rect x="14" y="14" width="16" height="16" rx="2" fill="none" stroke="#f36c21" stroke-width="3"/>
+                            <rect x="19" y="19" width="6" height="6" fill="#f36c21"/>
+                            <rect x="34" y="14" width="16" height="16" rx="2" fill="none" stroke="#222" stroke-width="3"/>
+                            <rect x="39" y="19" width="6" height="6" fill="#222"/>
+                            <rect x="14" y="34" width="16" height="16" rx="2" fill="none" stroke="#222" stroke-width="3"/>
+                            <rect x="19" y="39" width="6" height="6" fill="#222"/>
+                            <path d="M34 34h6v6h-6zM44 34h6v16h-6zM34 44h6v6h-6z" fill="#f36c21"/>
+                        </svg>
+                    </div>
+                    <div class="tile-name-btn mess-scanner-btn">Mess Scanner</div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="dash-bottom-nav">
+            <div class="dash-nav-item active">
+                <div class="dash-nav-icon-grid">
+                    <span></span><span></span>
+                    <span></span><span></span>
+                </div>
+                <span class="dash-nav-label">Dashboard</span>
+            </div>
+
+            <div class="dash-nav-item">
+                <i class="far fa-newspaper dash-nav-icon"></i>
+                <span class="dash-nav-label">Happenings</span>
+            </div>
+
+            <div class="dash-nav-item">
+                <i class="far fa-edit dash-nav-icon"></i>
+                <span class="dash-nav-label">RMS</span>
+            </div>
+
+            <div class="dash-nav-item">
+                <i class="fas fa-list-ul dash-nav-icon"></i>
+                <span class="dash-nav-label">View Marks</span>
+            </div>
+        </nav>
+
+        <!-- Side Navigation Drawer / Menu Overlay -->
+        <div id="side-menu-drawer" class="side-menu-drawer">
+            <div class="drawer-backdrop" onclick="closeNavDrawer()"></div>
+            <div class="drawer-content-panel">
+                
+                <!-- Close Button -->
+                <button class="drawer-close-btn" onclick="closeNavDrawer()" aria-label="Close Menu">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <!-- Profile Gradient Card Header (Click to view full Profile) -->
+                <div class="drawer-profile-card" onclick="showProfilePage(); closeNavDrawer();" style="cursor: pointer;" title="Click to view Profile">
+                    <div class="drawer-avatar-wrapper">
+                        <img src="avi_potrait.png" alt="Abhyuday" class="drawer-avatar-img">
+                    </div>
+                    <h2 class="drawer-student-name">Abhyuday </h2>
+                    <div class="drawer-student-reg">12517259 </div>
+                    <div class="drawer-student-program">P132:B.Tech. (Computer Science and Engineering)(2025)</div>
+                </div>
+
+                <!-- Search Input Box -->
+                <div class="drawer-search-box">
+                    <i class="fas fa-search drawer-search-icon"></i>
+                    <input type="text" id="drawer-search-input" placeholder="Search" onkeyup="filterDrawerMenu()">
+                </div>
+
+                <!-- Menu Item List -->
+                <div class="drawer-menu-scroll" id="drawer-menu-list">
+                    
+                    <!-- 1. Attendance -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Attendance')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <span class="drawer-item-label">Attendance</span>
+                    </div>
+
+                    <!-- 2. Placement Barcode Scanner -->
+                    <div class="drawer-menu-item" onclick="showMessCouponPage(); closeNavDrawer();">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <span class="drawer-item-label">Placement Barcode Scanner</span>
+                    </div>
+
+                    <!-- 3. Book Appointment -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Book Appointment')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <span class="drawer-item-label">Book Appointment</span>
+                    </div>
+
+                    <!-- 4. Transport Preference -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Transport Preference')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <span class="drawer-item-label">Transport Preference</span>
+                    </div>
+
+                    <!-- 5. Change UMS Password -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Change UMS Password')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <span class="drawer-item-label">Change UMS Password</span>
+                    </div>
+
+                    <!-- 6. View Marks -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('View Marks')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <span class="drawer-item-label">View Marks</span>
+                    </div>
+
+                    <!-- 7. Event Attendance -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Event Attendance')">
+                        <div class="drawer-item-icon">
+                            <i class="far fa-newspaper"></i>
+                        </div>
+                        <span class="drawer-item-label">Event Attendance</span>
+                    </div>
+
+                    <!-- 8. Doctor Appointment -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Doctor Appointment')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <span class="drawer-item-label">Doctor Appointment</span>
+                    </div>
+
+                    <!-- 9. Document Upload -->
+                    <div class="drawer-menu-item" onclick="handleMenuClick('Document Upload')">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-file-upload"></i>
+                        </div>
+                        <span class="drawer-item-label">Document Upload</span>
+                    </div>
+
+                    <!-- 10. Mess Coupon / Scanner -->
+                    <div class="drawer-menu-item" onclick="showMessCouponPage(); closeNavDrawer();">
+                        <div class="drawer-item-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <span class="drawer-item-label">Mess Coupon / Scanner</span>
+                    </div>
+
+                    <!-- Search empty state -->
+                    <div class="drawer-no-results" id="drawer-no-results" style="display: none;">
+                        No matching menu items found
+                    </div>
+
+                </div>
+
+                <!-- Footer Logout Button -->
+                <div class="drawer-footer">
+                    <button class="drawer-logout-btn" onclick="handleLogout()">
+                        <span>Logout</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. MAIN MESS COUPON PAGE (Student Details & Meal Selection Card) -->
+    <div id="mess-coupon-page" class="card-wrapper" style="display: none;">
+        
+        <!-- Back to Dashboard Bar -->
+        <div class="mess-top-nav-bar">
+            <button class="back-to-dash-btn" onclick="showDashboardPage()">
+                <i class="fas fa-arrow-left"></i> Dashboard
+            </button>
+            <span class="mess-page-header-title">Mess Coupon</span>
+        </div>
+
+        <!-- Main Gradient Card Container -->
+        <div class="gradient-card">
+            
+            <!-- Student Avatar & Name Header -->
+            <div class="profile-header">
+                <div class="avatar-box">
+                    <img src="avi_potrait.png" alt="Abhyuday">
+                </div>
+                <h2 class="student-title">Abyuday</h2>
+            </div>
+
+            <!-- Student Details List -->
+            <div class="student-info-list">
+                <div class="info-block">
+                    <span class="info-label">Father's Name</span>
+                    <span class="info-val">Birender Singh Yadav (8873922792)</span>
+                </div>
+
+                <div class="info-block">
+                    <span class="info-label">Mother's Name</span>
+                    <span class="info-val">Parwati  Devi (8873922792)</span>
+                </div>
+
+                <div class="info-block">
+                    <span class="info-label">Program Name</span>
+                    <span class="info-val">P132:B.Tech. (Computer Science and Engineering)(2025)</span>
+                </div>
+
+                <div class="info-block">
+                    <span class="info-label">Hostel</span>
+                    <span class="info-val">Boys Hostel-04- B903-Bed B (Standard Air Cooler 5 Seater)</span>
+                </div>
+            </div>
+
+            <!-- Meals Grid Container (Matching Screenshot Exact Layout) -->
+            <div class="meals-white-container">
+                <div class="meals-grid">
+                    
+                    <!-- Breakfast Button Card -->
+                    <a href="scan.html?meal=Breakfast" class="meal-button-card">
+                        <span class="meal-button-text">Breakfast</span>
+                    </a>
+
+                    <!-- Lunch Button Card -->
+                    <a href="scan.html?meal=Lunch" class="meal-button-card">
+                        <span class="meal-button-text">Lunch</span>
+                    </a>
+
+                    <!-- Dinner Button Card (Full Width) -->
+                    <a href="scan.html?meal=Dinner" class="meal-button-card full-width">
+                        <span class="meal-button-text">Dinner</span>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 4. STUDENT PROFILE PAGE (Appears when clicking profile picture in Side Drawer) -->
+    <div id="student-profile-page" class="profile-container-wrapper" style="display: none;">
+        <div class="profile-page-card">
+            
+            <!-- Dark Top Header Bar -->
+            <header class="profile-top-header">
+                <button class="profile-back-btn" onclick="showDashboardPage()">
+                    <i class="fas fa-chevron-left"></i> Back
+                </button>
+                <h1 class="profile-title-text">Profile</h1>
+                <button class="profile-qr-btn" onclick="showMessCouponPage()">
+                    (QR)
+                </button>
+            </header>
+
+            <!-- Scrollable Content Body -->
+            <div class="profile-body-scroll">
+                
+                <!-- Profile Picture & Gradient Banner Card -->
+                <div class="profile-gradient-banner">
+                    <div class="profile-square-avatar">
+                        <img src="avi_potrait.png" alt="Abhyuday">
+                    </div>
+                    <h2 class="profile-user-name">Abhyuday</h2>
+                    <p class="profile-user-program">P132:B.Tech. (Computer Science and Engineering)(2025)</p>
+                </div>
+
+                <!-- Section: Basic -->
+                <div class="profile-details-block">
+                    <div class="profile-block-header">Basic</div>
+                    <div class="profile-block-content">
+                        <div class="profile-field-row">
+                            <span class="field-title">Father's Name</span>
+                            <span class="field-value">Birendra Singh Yadav</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Mother's Name</span>
+                            <span class="field-value">Parwati  Devi</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Permanent Address</span>
+                            <span class="field-value">Khiriaon, Khiriawan PO Khirionar, Rohtas , Bihar, India, 821310</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Correspondence Address</span>
+                            <span class="field-value">Khiriaon, Khiriawan PO Khirionar, Rohtas , Bihar, India, 821310</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Contact No.</span>
+                            <span class="field-value">8102519528</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Email</span>
+                            <span class="field-value">abhyuday654@gmail.com</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Date Of Birth</span>
+                            <span class="field-value">2007-11-17</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Student Gender</span>
+                            <span class="field-value">Male</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Academic Details -->
+                <div class="profile-details-block">
+                    <div class="profile-block-header">Academic Details</div>
+                    <div class="profile-block-content">
+                        <div class="profile-field-row">
+                            <span class="field-title">Program</span>
+                            <span class="field-value">P132:B.Tech. (Computer Science and Engineering)(2025)</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Admission Session</span>
+                            <span class="field-value">2025-1</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Batch</span>
+                            <span class="field-value">2025</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Section</span>
+                            <span class="field-value">K2P25WR</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">TPC</span>
+                            <span class="field-value">Not Applicable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Hostel Details -->
+                <div class="profile-details-block">
+                    <div class="profile-block-header">Hostel Details</div>
+                    <div class="profile-block-content">
+                        <div class="profile-field-row">
+                            <span class="field-title">Hostel</span>
+                            <span class="field-value">Boys Hostel-04- E903-Bed B (Standard Air Cooler 5 Seater)</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Warden</span>
+                            <span class="field-value">29276::Pavan Kumar (9888598087)</span>
+                        </div>
+                        <div class="profile-field-row">
+                            <span class="field-title">Allocated Mess</span>
+                            <span class="field-value">Boys Hostel 4 Mess - 1</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Flow & Navigation Script -->
+    <script>
+        // Page Navigation Functions
+        function showDashboardPage() {
+            const dashPage = document.getElementById('dashboard-page');
+            const messPage = document.getElementById('mess-coupon-page');
+            const profilePage = document.getElementById('student-profile-page');
+            document.body.className = 'dashboard-page-body';
+            if (messPage) messPage.style.display = 'none';
+            if (profilePage) profilePage.style.display = 'none';
+            if (dashPage) dashPage.style.display = 'flex';
+        }
+
+        function showMessCouponPage() {
+            const dashPage = document.getElementById('dashboard-page');
+            const messPage = document.getElementById('mess-coupon-page');
+            const profilePage = document.getElementById('student-profile-page');
+            document.body.className = 'main-page-body';
+            if (dashPage) dashPage.style.display = 'none';
+            if (profilePage) profilePage.style.display = 'none';
+            if (messPage) messPage.style.display = 'flex';
+        }
+
+        function showProfilePage() {
+            const dashPage = document.getElementById('dashboard-page');
+            const messPage = document.getElementById('mess-coupon-page');
+            const profilePage = document.getElementById('student-profile-page');
+            document.body.className = 'dashboard-page-body';
+            if (dashPage) dashPage.style.display = 'none';
+            if (messPage) messPage.style.display = 'none';
+            if (profilePage) profilePage.style.display = 'flex';
+            window.scrollTo(0, 0);
+        }
+
+        // Side Navigation Drawer Functions
+        function openNavDrawer() {
+            const drawer = document.getElementById('side-menu-drawer');
+            if (drawer) drawer.classList.add('active');
+        }
+
+        function closeNavDrawer() {
+            const drawer = document.getElementById('side-menu-drawer');
+            if (drawer) drawer.classList.remove('active');
+        }
+
+        function filterDrawerMenu() {
+            const input = document.getElementById('drawer-search-input');
+            if (!input) return;
+            const filter = input.value.toLowerCase().trim();
+            const items = document.querySelectorAll('.drawer-menu-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const text = item.textContent || item.innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            const noResults = document.getElementById('drawer-no-results');
+            if (noResults) {
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        }
+
+        function handleMenuClick(featureName) {
+            closeNavDrawer();
+            console.log("Clicked " + featureName);
+        }
+
+        function handleLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                closeNavDrawer();
+                location.reload();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auto OS Platform Detection for Native Font Rendering (Android Roboto / iOS SF Pro)
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(ua)) {
+                document.documentElement.classList.add('is-android');
+            } else if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+                document.documentElement.classList.add('is-ios');
+            } else {
+                document.documentElement.classList.add('is-desktop');
+            }
+
+            const splash = document.getElementById('loading-splash');
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetPage = urlParams.get('page');
+
+            // If coming directly from scanner close button back to mess page
+            if (targetPage === 'mess') {
+                if (splash) splash.style.display = 'none';
+                showMessCouponPage();
+                return;
+            }
+
+            // Normal Flow: Loading Splash (3.5 Seconds) -> Dashboard Page
+            if (splash) {
+                setTimeout(() => {
+                    splash.classList.add('fade-out');
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                        showDashboardPage();
+                    }, 400);
+                }, 3500);
+            } else {
+                showDashboardPage();
+            }
+        });
+    </script>
+</body>
+</html>
+
